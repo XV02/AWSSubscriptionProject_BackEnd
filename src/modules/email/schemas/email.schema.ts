@@ -9,4 +9,4 @@ export class Email {
   email: string;
 }
 
-export const CatSchema = SchemaFactory.createForClass(Email);
+export const EmailSchema = SchemaFactory.createForClass(Email);
