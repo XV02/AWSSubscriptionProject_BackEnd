@@ -5,6 +5,8 @@ import { CreateEmailResponseDto } from './dto/confirmEmailSave.dto';
 import { CreateEmailDto } from './dto/email.dto';
 import { EmailDocument } from './schemas/email.schema';
 
+const MONGO_DUPLICATED_ERROR = 11000;
+
 @Injectable()
 export class EmailService {
   constructor(
@@ -22,7 +24,7 @@ export class EmailService {
         id: response._id,
       };
     } catch (error) {
-      if (error.code === 11000) {
+      if (error.code === MONGO_DUPLICATED_ERROR) {
         throw new HttpException(
           `Can't register duplicated email`,
           HttpStatus.CONFLICT,
