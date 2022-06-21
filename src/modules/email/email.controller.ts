@@ -6,6 +6,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateEmailResponseDto } from './dto/confirmEmailSave.dto';
 import { CreateEmailDto } from './dto/email.dto';
 import { EmailService } from './email.service';
 
@@ -16,7 +17,9 @@ export class EmailController {
 
   @Post('save')
   @UsePipes(new ValidationPipe())
-  async save(@Body() createEmailDto: CreateEmailDto) {
+  async save(
+    @Body() createEmailDto: CreateEmailDto,
+  ): Promise<CreateEmailResponseDto> {
     return await this.emailService.create(createEmailDto);
   }
 }

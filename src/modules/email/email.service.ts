@@ -11,10 +11,16 @@ export class EmailService {
     @InjectModel('Email') private readonly emailModel: Model<EmailDocument>,
   ) {}
 
-  async create(createEmailDto: CreateEmailDto) {
+  async create(
+    createEmailDto: CreateEmailDto,
+  ): Promise<CreateEmailResponseDto> {
     const createdEmail = new this.emailModel(createEmailDto);
     try {
-      return await createdEmail.save();
+      const response = await createdEmail.save();
+      return {
+        message: 'Email registered successfully',
+        id: response._id,
+      };
     } catch (error) {
       if (error.code === 11000) {
         throw new HttpException(
